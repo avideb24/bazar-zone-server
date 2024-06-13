@@ -63,6 +63,14 @@ async function run() {
       
     })
 
+    // search products
+    app.get('/products/search/:name', async(req, res) => {
+      const productName = req.params.name;
+      const query = {title: { $regex: productName, $options:'i' }};
+      const result = await productCollection.find(query).toArray();
+      res.send(result);
+    })
+
     
 
     // Send a ping to confirm a successful connection
