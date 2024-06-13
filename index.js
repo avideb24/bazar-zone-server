@@ -52,8 +52,18 @@ async function run() {
       res.send(result);
     })
 
-    
+    // get products by category
+    app.get('/products/category/:category', async(req, res) => {
+      const category = req.params.category;
+      if(category){
+        const query = {category: category};
+        const result = await productCollection.find(query).toArray();
+        res.send(result)
+      }
+      
+    })
 
+    
 
     // Send a ping to confirm a successful connection
     await client.db("admin").command({ ping: 1 });
